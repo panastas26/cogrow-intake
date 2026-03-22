@@ -237,6 +237,12 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
+  // Debug: check if env vars are loaded
+  if (!process.env.RESEND_API_KEY) {
+    console.error('ERROR: RESEND_API_KEY not found in env');
+    return res.status(500).json({ error: 'Missing RESEND_API_KEY' });
+  }
+
   const errors = [];
 
   // 1. Send confirmation email to client
